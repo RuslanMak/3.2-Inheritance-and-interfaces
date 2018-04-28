@@ -37,6 +37,11 @@ interface ChangeColor
     public function changeColor($color);
 }
 
+interface Category
+{
+    public function category($category);
+}
+
 //-------------------------------------------MySuperClass-------------------------------------------
 
 class Products //implements MyConstruct   //--A так можно? Почему "discount, price" тогда подсвечуются(Это плохо)????
@@ -83,9 +88,12 @@ class Duck extends Products implements MyPrice
     public $color;
 }
 
-class Product extends Products implements MyPrice
+class Product extends Products implements MyPrice, Category
 {
-    public $category;
+    public function category($category)
+    {
+        $this->category = $category;
+    }
 }
 
 //------------------------------------- Objects---------------------------------------------
@@ -117,11 +125,11 @@ $american_black_duck = new Duck('American black duck', '10', 11);
 $american_black_duck->color = 'Black';
 
 //----------------Product-----------------
-$cup = new Product('White cup', '10', 2);
-$cup->category = 'Cups';
+$cup = new Product('White cup', '10', 10);
+$cup->category('Cups');
 
-$book = new Product('Health', '', 5);
-$book->category = 'Books';
+$book = new Product('Health', '10', 8);
+$book->category('Books');
 
 
 //-----------------------------------Echo------------------------------------------------------
@@ -141,6 +149,13 @@ echo "Price for " . "$lg->name: " . $lg->getPrice() . "<br><br><br>";
 print_r($sone);
 echo "Price for " . "$sone->name: " . $sone->getPrice() . "<br>";
 
+//------------Product--------------
+echo "<h2>Product</h2>";
+print_r($cup);
+echo "Price for " . "$cup->name: " . $cup->getPrice() . "<br><br><br>";
+
+print_r($book);
+echo "Price for " . "$book->name: " . $book->getPrice() . "<br>";
 
 
 
