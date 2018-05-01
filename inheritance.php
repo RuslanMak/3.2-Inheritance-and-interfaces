@@ -44,8 +44,12 @@ interface Category
 
 //-------------------------------------------MySuperClass-------------------------------------------
 
-class Products //implements MyConstruct   //--A так можно? Почему "discount, price" тогда подсвечуются(Это плохо)????
+class Products implements MyConstruct
 {
+    public $name;
+    public $discount;
+    public $price;
+
     public function getPrice()
     {
         if ($this->discount) {
@@ -83,9 +87,13 @@ class BallPen extends Products implements MyPrice
     public $color;
 }
 
-class Duck extends Products implements MyPrice
+class Duck extends Products implements MyPrice, ChangeColor
 {
-    public $color;
+    private $color = 'White';
+    public function changeColor($color)
+    {
+        $this->color = $color;
+    }
 }
 
 class Product extends Products implements MyPrice, Category
@@ -119,10 +127,9 @@ $space_pen->color = 'Black';
 
 //----------------Duck-----------------
 $american_pekin = new Duck('American Pekin', 10, 10);
-$american_pekin->color = 'White';
 
 $american_black_duck = new Duck('American black duck', '10', 11);
-$american_black_duck->color = 'Black';
+$american_black_duck->changeColor('Black');
 
 //----------------Product-----------------
 $cup = new Product('White cup', '10', 10);
